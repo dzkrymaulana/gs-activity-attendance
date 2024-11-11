@@ -20,6 +20,7 @@ function getLocation() {
     function onFail() {
       //...
       console.log("Location not granted!");
+      getToast("Location permission is not enabled!", "warning");
     }
   );
 }

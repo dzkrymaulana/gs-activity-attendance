@@ -17,7 +17,7 @@ function pageLoader(event = "show") {
 
 function getLoader(selector = "", text = "Loading...") {
   var spinnerWrapper = $(
-    "<div class='loader-wrapper container py-3 my-2 bg-light d-flex justify-content-center align-items-center gap-2' data-loader-state></div>"
+    "<div class='loader-wrapper container py-1 my-1 d-flex justify-content-center align-items-center gap-2' data-loader-state></div>"
   );
   var spinner = $(
     '<span id="spinner" class="spinner-border spinner-border-sm" role="status"></span><span class="" role="status">' +

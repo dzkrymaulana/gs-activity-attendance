@@ -29,14 +29,15 @@ $("select#name").on("change", function () {
   localData.formValue.personId = idVal;
   localData.formValue.personName = nameVal;
 
-  getLoader("select#name", "Memerikas Status...");
-  var clockInStatus = checkClockInStatus(idVal, nameVal);
-
-  if (clockInStatus) {
-    setTimeout(function () {
-      hideLoader("select#name");
-    }, 1000);
+  if (!$("#clock-in-form").hasClass("d-none")) {
+    $("#clock-in-form").removeClass("d-none");
   }
+  if (!$("#clock-out-form").hasClass("d-none")) {
+    $("#clock-out-form").removeClass("d-none");
+  }
+
+  getLoader("#submit-btn", "Memerikas Status...");
+  var clockInStatus = checkClockInStatus(idVal, nameVal);
 });
 
 $("select#workplace").on("change", function () {
