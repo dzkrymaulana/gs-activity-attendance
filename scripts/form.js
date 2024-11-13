@@ -21,6 +21,24 @@ function setSelectDatabase() {
   });
 }
 
+function resetForm() {
+  $("#clock-in-form, #clock-out-form").each(function () {
+    if (!$(this).hasClass("d-none")) {
+      $(this).addClass("d-none");
+    }
+  });
+
+  $("#main-form input, #main-form textarea, #main-form select").val("");
+
+  $("#submit-btn")
+    .attr("onclick", "clockIn()")
+    .children("span")
+    .text("Clock In");
+
+  select2Init();
+}
+
+// for check clock in status with person data
 $("select#name").on("change", function () {
   var val = $(this).val();
   var idVal = val.split("#")[0];
@@ -36,7 +54,7 @@ $("select#name").on("change", function () {
     $("#clock-out-form").removeClass("d-none");
   }
 
-  getLoader("#submit-btn", "Memerikas Status...");
+  getLoader("#submit-btn", "Checking Your Status...");
   var clockInStatus = checkClockInStatus(idVal, nameVal);
 });
 
