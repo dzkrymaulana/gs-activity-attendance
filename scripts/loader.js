@@ -20,7 +20,7 @@ function getLoader(selector = "", text = "Loading...") {
     "<div class='loader-wrapper container py-1 my-1 d-flex justify-content-center align-items-center gap-2' data-loader-state></div>"
   );
   var spinner = $(
-    '<span id="spinner" class="spinner-border spinner-border-sm" role="status"></span><span class="" role="status">' +
+    '<span id="spinner" class="spinner-border spinner-border-sm" ></span><span class="" role="status">' +
       text +
       "</span></div>"
   );

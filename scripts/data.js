@@ -20,6 +20,13 @@ var localData = {
   clockInStatus: {},
 };
 
+function getDatabase() {
+  localData.database.personData = personDatabase;
+  localData.database.workplaceData = workPlaceDatabase;
+
+  setSelectDatabase();
+}
+
 // check if person has clock in
 function checkClockInStatus(id = "", name = "") {
   if (id !== "" && name !== "") {
@@ -38,6 +45,16 @@ function checkClockInStatus(id = "", name = "") {
     };
 
     if (localData.clockInStatus.status) {
+      var inData = localData.clockInStatus.clockInData;
+      $("#clock-in-workplace").text(inData.workplaceName);
+      $("#clock-in-activity").text(inData.activityDesc);
+      $("#clock-in-time").text(inData.clockInTimestamp);
+      localData.formValue.personId = inData.personId;
+      localData.formValue.personName = inData.personName;
+      localData.formValue.workplaceId = inData.workplaceId;
+      localData.formValue.workplaceName = inData.workplaceName;
+      localData.formValue.activityDesc = inData.activityDesc;
+
       $("#clock-out-form").removeClass("d-none");
       setTimeout(function () {
         hideLoader("#submit-btn");
@@ -77,7 +94,8 @@ function clockIn() {
     getToast("Device location not detected!", "error");
     getLocation();
   } else {
-    clockInProcess();
+    // clockInProcess();
+    captureImage("(in)" + localData.formValue.personId, clockInProcess);
   }
 }
 
@@ -100,7 +118,7 @@ function clockOut() {
     getToast("Device location not detected!", "error");
     getLocation();
   } else {
-    clockOuProcess();
+    captureImage("(out)" + localData.formValue.personId, clockOuProcess);
   }
 }
 

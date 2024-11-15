@@ -2,12 +2,12 @@ pageLoader("show"); //show page loader
 getLoader("#main-form", "Memuat Data..."); // show loader in form element
 
 $(document).ready(function () {
+  // set database for select form
+  setDatabase();
   // get camera
   getCamera();
   // set label * for required form input
   setFormRequiredLabel();
-  // set database for select form
-  setSelectDatabase();
   // init select2
   select2Init();
   // get date and time data and loop every 1 seconds
