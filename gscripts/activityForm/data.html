@@ -1,0 +1,164 @@
+<script>
+
+    var localData = {
+        database: {
+            personData: {},
+            workplaceData: {},
+        },
+        formValue: {
+            personId: "",
+            personName: "",
+            workplaceName: "",
+            workplaceId: "",
+            activityDesc: "",
+            activityNotes: "",
+            pictId: "",
+        },
+        timestamp: "",
+        location: {
+            locationCoordinate: "",
+            locationName: "",
+        },
+        clockInStatus: {},
+    };
+
+
+    function getDatabase() {
+
+        google.script.run.withSuccessHandler(function (data) {
+            localData.database.personData = data.personDatabase;
+            localData.database.workplaceData = data.workplaceDatabase;
+
+            setSelectDatabase();
+            onReadyDatabase();
+        }).getAllDatabases();
+
+
+    }
+
+
+    // MENYIMPAN KE DRIVE
+    function uploadToDrive(fileData, fileName, microTime = true, next = function () { }) {
+        let now = Date.now();
+        var fileName = fileName;
+        microTime ? (fileName += " - " + now) : (fileName = fileName);
+        // console.log(fileData);
+        // menyimpan gambar ke google drive
+        google.script.run.withSuccessHandler(function (uc) {
+
+            if (uc.status == "error") {
+                return getToast(uc.error, "error");
+            } else {
+                localData.formValue.pictId = uc.fileId;
+                $("[data-loader-state='#submit-btn']").children("[role='status']").text("Saving your activity...");
+                next();
+            }
+
+        }).savePicture(fileData, fileName);
+    }
+
+    // check if person has clock in
+    function checkClockInStatus(id = "") {
+        if (id !== "") {
+            google.script.run.withSuccessHandler(function (data) {
+
+                const d = data.split("|");
+                if (d[0] == "true") {
+                    $("#clock-in-workplace").text(d[4]);
+                    $("#clock-in-activity").text(d[5]);
+                    $("#clock-in-time").text(d[6]);
+
+                    localData.formValue.personId = d[1];
+                    localData.formValue.personName = d[2];
+                    localData.formValue.workplaceId = d[3];
+                    localData.formValue.workplaceName = d[4];
+                    localData.formValue.activityDesc = d[5];
+
+                    $("#clock-out-form").removeClass("d-none");
+                    $("#submit-btn").attr("onclick", "clockOut()").children("span").text("Clock Out");
+                    hideLoader("#submit-btn");
+
+                } else {
+                    $("#clock-in-form").removeClass("d-none");
+                    $("#submit-btn").attr("onclick", "clockIn()").children("span").text("Clock In");
+                    hideLoader("#submit-btn");
+
+                }
+
+            }).checkClockInStatus(id);
+        }
+    }
+
+    // clock in function
+    function clockIn() {
+        if ($("select#name").val() == "") {
+            getToast('"Name" is required!', "error");
+            $("select#name").focus();
+        } else if ($("select#workplace").val() == "") {
+            getToast('"Workplace" is required!', "error");
+            $("select#workplace").focus();
+        } else if ($("textarea#activity-desc").val() == "") {
+            getToast('"Activity Description" is required!', "error");
+            $("textarea#activity-desc").focus();
+        } else if (localData.location.locationCoordinate == "") {
+            getToast("Device location not detected!", "error");
+            getLocation();
+        } else {
+            // clockInProcess();
+            getLoader("#submit-btn", "Uploading your picture...");
+            captureImage("(in)" + localData.formValue.personId, clockInProcess);
+        }
+    }
+
+    // clock in process data
+    function clockInProcess() {
+        var data = localData.formValue;
+        data.coord = localData.location.locationCoordinate;
+        data.locName = localData.location.locationName;
+
+        google.script.run.withSuccessHandler(function (status) {
+
+            if (status) {
+                getAlert("Your activity has been saved!", "success");
+                hideLoader("#submit-btn");
+                resetForm();
+            }
+
+        }).saveClockInData(data);
+
+    }
+
+    // clock out function
+    function clockOut() {
+        if ($("select#name").val() == "") {
+            getToast('"Name" is required!', "error");
+            $("select#name").focus();
+        } else if (localData.location.locationCoordinate == "") {
+            getToast("Device location not detected!", "error");
+            getLocation();
+        } else {
+            getLoader("#submit-btn", "Uploading your picture...");
+            captureImage("(out)" + localData.formValue.personId, clockOuProcess);
+        }
+    }
+
+    // clock out process data
+    function clockOuProcess() {
+        var data = localData.formValue;
+        data.coord = localData.location.locationCoordinate;
+        data.locName = localData.location.locationName;
+
+        google.script.run.withSuccessHandler(function (status) {
+            if (status) {
+                getAlert("Your activity has been saved!", "success");
+                hideLoader("#submit-btn");
+                resetForm();
+            }
+
+        }).saveClockOutData(data);
+
+    }
+
+
+
+</script>
