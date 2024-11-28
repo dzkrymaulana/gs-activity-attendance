@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet" />
+    <style type="text/css">
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #032054;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: start;
+            flex-direction: column;
+        }
+
+        #logo {
+            max-height: 100px;
+            width: auto;
+        }
+
+        #logo img {
+            height: 60px;
+        }
+
+        #error-info {
+            display: block;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            text-align: left;
+
+        }
+
+        #error-info h2 {
+            margin: 0;
+        }
+
+        #error-info ul {
+            margin: 0;
+        }
+
+        #error-info ul li {
+            list-style-type: square;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="logo">
+        <img src="app-icon.png" alt="">
+    </div>
+    <div id="error-info">
+        <h2>Terjadi Kesalahan!</h2>
+        <br>
+        <span>Kesalahan mungkin terjadi karena :</span>
+        <ul>
+            <li>Koneksi jaringan bermasalah</li>
+            <li>Perangkat tidak mendukung</li>
+            <li>Masalah cache aplikasi</li>
+        </ul>
+        <br>
+        <span>Beberapa solusi :</span>
+        <ul>
+            <li>Pindah ke tempat dengan koneksi yang stabil</li>
+            <li>Periksa paket data anda / modem yang anda gunakan</li>
+            <li>Periksa pengaturan DNS, Proxy atau VPN anda</li>
+            <li>Bersihkan cache aplikasi</li>
+        </ul>
+        <h4>Silahkan mulai ulang aplikasi...</h4>
+    </div>
+</body>
+
+</html>

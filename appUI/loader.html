@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loader</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet" />
+    <style type="text/css">
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #032054;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        #logo {
+            max-height: 100px;
+            width: auto;
+        }
+
+        #logo img {
+            height: 60px;
+        }
+
+        #app-name {
+            display: block;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+
+        }
+
+        #app-name h2 {
+            margin: 0;
+        }
+
+        #loader {
+            width: 20px;
+            height: 20px;
+            margin-top: 50px;
+            border-radius: 100%;
+            border: 5px solid #563ec9;
+            border-top-color: #e2ddff;
+            animation: spin 0.5s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="logo">
+        <img src="app-icon.png" alt="">
+    </div>
+    <div id="app-name">
+        <h2>Activity Attendance</h2>
+        <span>by Dzikry Maulana</span>
+    </div>
+    <div id="loader"></div>
+</body>
+
+</html>
