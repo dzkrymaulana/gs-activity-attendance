@@ -47,11 +47,14 @@
 <body>
     <header id="page-header" class="fixed-top w-100 bg-primary d-flex justify-content-between align-items-center"
         style="height: 50px;">
-        <div class="container d-flex justify-content-start align-items-center gap-2 py-2">
+        <div class="container d-flex justify-content-between align-items-center gap-2 py-2">
             <a href="javascript:" id="back-btn" class="text-white me-2 mb-0 lh-0 p-2" onclick="backPage()">
                 <i class="fa fa-arrow-left"></i>
             </a>
             <h3 id="title-text" class="lh-1 mb-0 text-white"></h3>
+            <a href="javascript:" id="back-btn" class="text-white me-2 mb-0 lh-0 p-2" onclick="refreshPage()">
+                <i class="fa fa-rotate"></i>
+            </a>
         </div>
     </header>
     <main id="main">
@@ -98,6 +101,10 @@
 
         function backPage() {
             history.go(-1);
+        }
+
+        function refreshPage() {
+            location.reload();
         }
     </script>
 </body>
